@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="org.apache.cordova.plugins.cambie"
+    version="0.0.1">
+
+    <name>Cambie</name>
+
+    <engines>
+        <engine name="cordova" version=">= 3.0.0" />
+    </engines>
+
+    <js-module src="www/cambie.js" name="Cambie">
+        <merges target="navigator" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Cambie">
+                <param name="android-package" value="org.apache.cordova.plugins.Cambie"/>
+            </feature>
+            <preference name="showTitle" value="true" />
+            <preference name="fullscreen" value="false" />
+        </config-file>
+
+        <source-file src="src/android/Cambie.java" target-dir="src/org/apache/cordova/plugins" />
+    </platform>
+</plugin>
