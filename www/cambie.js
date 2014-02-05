@@ -50,20 +50,19 @@ var parsePageNavigation = function(page_el, success, error) {
     var footer = page_el.querySelector('footer');
     var jsobj = {};
 
-
     jsobj['title'] = (function(el) {
         // Default to the <title> tag
         var title = document.title;
 
-        if (el.getAttribute('data-title')) {
+        if (el && el.getAttribute('data-title')) {
             title = el.getAttribute('data-title');
         }
 
-        if (el.getAttribute('title')) {
+        if (el && el.getAttribute('title')) {
             title = el.getAttribute('title');
         }
 
-        for (var i = 6; i > 0; --i) {
+        for (var i = 6; el && i > 0; --i) {
             var heading = el.querySelector('h'+i);
 
             if (heading) {
@@ -76,7 +75,7 @@ var parsePageNavigation = function(page_el, success, error) {
 
 
     jsobj['nav'] = (function(el) {
-        var nav = (el.getAttribute('data-nav') || 'none').toLowerCase();
+        var nav = ((el && el.getAttribute('data-nav')) || 'none').toLowerCase();
 
         if (nav != 'none' && nav != 'back' && nav != 'menu' && nav != 'cancel') {
             console.error('Invalid navigation type: ' + nav);
