@@ -98,26 +98,28 @@ var parsePageNavigation = function(page_el, success, error) {
 
         if (!el && !global_menu) { return menuitems; }
 
-        var children = el.querySelectorAll('menuitem');
-        for (var i = 0, ii = children.length; i < ii; ++i) {
-            var mi = {};
+        if (el) {
+            var children = el.querySelectorAll('menuitem');
+            for (var i = 0, ii = children.length; i < ii; ++i) {
+                var mi = {};
 
-            var child = children[i];
+                var child = children[i];
 
-            mi['label']     = child.getAttribute('label');
-            mi['icon']      = child.getAttribute('icon');
-            mi['disabled']  = !!child.getAttribute('disabled');
+                mi['label']     = child.getAttribute('label');
+                mi['icon']      = child.getAttribute('icon');
+                mi['disabled']  = !!child.getAttribute('disabled');
 
-            var callbackId = 'MenuClick' + cordova.callbackId++;
-            cordova.callbacks[callbackId] = {
-                success:    (function(target) {
-                                return function() { target.click(); }
-                            })(child),
-                fail:       error
-            };
-            mi['callback'] = callbackId;
+                var callbackId = 'MenuClick' + cordova.callbackId++;
+                cordova.callbacks[callbackId] = {
+                    success:    (function(target) {
+                                    return function() { target.click(); }
+                                })(child),
+                    fail:       error
+                };
+                mi['callback'] = callbackId;
 
-            menuitems.push(mi);
+                menuitems.push(mi);
+            }
         }
 
         if (global_menu) {
